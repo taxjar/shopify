@@ -8,6 +8,7 @@ defmodule Shopify.Location do
   alias Shopify.Location
 
   defstruct [
+    :id,
     :name,
     :address1,
     :address2,
@@ -17,7 +18,11 @@ defmodule Shopify.Location do
     :country,
     :phone,
     :created_at,
-    :updated_at
+    :updated_at,
+    :deleted_at,
+    :country_code,
+    :country_name,
+    :province_code
   ]
 
   @doc false
