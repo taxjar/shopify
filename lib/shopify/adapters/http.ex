@@ -2,7 +2,7 @@ defmodule Shopify.Adapters.HTTP do
   @moduledoc false
 
   @behaviour Shopify.Adapters.Base
-  @options [hackney: [pool: :shopify], ssl: [{:versions, [:'tlsv1.2']}]]
+  @options [hackney: [pool: :shopify], ssl: [{:versions, [:'tlsv1.2']}], recv_timeout: 60_000]
 
   def get(request) do
     HTTPoison.get(request.full_url, request.headers, @options)
@@ -27,4 +27,9 @@ defmodule Shopify.Adapters.HTTP do
   def handle_response({:ok, %HTTPoison.Response{status_code: code, body: body}}, resource)  do
     Shopify.Response.new(code, body, resource)
   end
+
+  def handle_response({:error, %HTTPoison.Error{id: id, reason: reason}}, _resource)  do
+    Shopify.Error.new(id, reason)
+  end
+
 end
