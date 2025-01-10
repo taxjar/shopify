@@ -6,6 +6,8 @@ defmodule Shopify.TaxLine do
   defstruct [
     :price,
     :rate,
-    :title
+    :title,
+    :price_set,
+    :channel_liable
   ]
 end
